@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light">
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand" href="/"><h5 class="text-warning">Plant Mart</h5></a>
+              {%if request.user.is_authenticated%}
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'logout'%}"><h6 class="text-danger">Logout</h6></a>
+                </li>                  
+              </ul>
+              {%else%}
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="/register/"><h6 class="text-primary">SignUp</h6></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login/"><h6 class="text-primary">Login</h6></a>
+                  </li>
+              </ul>
+              {%endif%}
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+              {%for i in logo%} 
+              {%if i.name == 'cart'%}
+              <a href="{%url 'mycart'%}" >
+                <button class="btn btn-warning ml-2" type="submit"><img width="30px" height="30px" src="{{i.image}}">Cart</button>
+              </a>
+              {%endif%}
+              {%endfor%}
+            </div>
+          </nav>
+          <br><br><br><br><br><br>
+
+    </body>   
+</html>

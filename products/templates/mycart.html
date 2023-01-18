@@ -1,0 +1,35 @@
+{%include 'navbar.html'%}
+<body>
+    <center>
+            {%for product in products%}
+            {%for i in product%}
+
+            <div class="card">
+                <div class="card-body">
+                    <img width="150px" height="150px" src="../{{i.product.image}}">
+                    <form method="POST" action="{%url 'delete_from_cart'%}">
+                        {%csrf_token%}
+                        <input type="hidden" name="id" value="{{i.product.id}}">
+                        <input class="btn-outline-danger" type="submit" value="X">
+                    </form>
+                    <h5 class="card-title">{{i.product.name}}</h5>
+                    <p class="card-text">Total: {{i.total}}</p>
+                    
+                </div>
+              </div>
+            {%endfor%}
+            {%endfor%}
+            {%for i in products%}
+            {%if i|length > 0%}
+            <form method="POST">
+                {%csrf_token%}
+                <input class="btn-outline-success" type="submit" value="Proceed to Buy">
+            </form>
+            {%else%}
+            <p>Nothing is added to cart yet</p>
+            {%endif%}
+            {%endfor%}
+            
+            
+    </center>
+</body>

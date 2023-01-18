@@ -1,0 +1,36 @@
+{%include 'navbar.html'%}
+<body>  
+    {%if request.user.is_authenticated%}
+    <center>
+          <h6 class="text-primary">Welcome {{request.user}}, check out our new products..</h6>
+    </center>
+    {%endif%}
+    <center>
+        <table>
+            {%for i in products%}
+            {%if forloop.counter0|divisibleby:3 %}
+            </tr><tr><td>
+            {%else%}
+            <td>
+            {%endif%}
+                <div class="card" style="height:10rem,width: 18rem;">
+                    <img width="200px" height="200px" src="{{i.image}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">{{i.name}}</p>
+                      <p class="card-text">price: {{i.price}}RS</p>
+                      <p class="card-text">stock: {{i.stock}}</p>
+                      {%for i in messages%}
+                      <p class="text-danger card-text">{{i}}</p>
+                      {%endfor%}
+                      <form method="POST" action="{%url 'add_to_cart'%}">
+                        {%csrf_token%}
+                        <input value="{{i.id}}" name="id" type="hidden">
+                        <p class="card-text">total:<input required type="number" name="total" step="1" min="1" max="{{i.stock}}"></p>
+                      <button type="submit" class="btn btn-primary">Add to cart</button>
+                      </form>
+                    </div>
+                  </div>
+            {%endfor%}
+        </table>
+    </center>
+</body>
