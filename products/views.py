@@ -39,7 +39,7 @@ def logout_user(request):
 def mycart(request):
     context = {}
     if request.user.is_authenticated:
-        context["products"] = {models.cart.objects.all()}
+        context["products"] = {models.cart.objects.filter(user=request.user)}
         context["logo"] = {models.siteimage.objects.all()}
     return render(request,"mycart.html",context)   
 
